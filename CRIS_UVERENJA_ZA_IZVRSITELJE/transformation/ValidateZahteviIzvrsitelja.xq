@@ -8,11 +8,6 @@ declare function xf:ValidateZahteviIzvrsitelja($request1 as element(ns0:Request)
     as element(ns0:Request) {
         <ns0:Request>
             <ns0:jmbg-izvrsitelja>{ data($request1/ns0:jmbg-izvrsitelja) }</ns0:jmbg-izvrsitelja>
-            {
-                for $datum in $request1/ns0:datum
-                return
-                    <ns0:datum>{ data($datum) }</ns0:datum>
-            }
         </ns0:Request>
 };
 

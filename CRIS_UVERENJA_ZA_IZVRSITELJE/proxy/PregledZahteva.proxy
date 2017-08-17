@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/stages/config">
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
       <con:wsdl ref="CRIS_UVERENJA_ZA_IZVRSITELJE/wsdl/PregledZahteva"/>
@@ -99,7 +99,7 @@
                     <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1265025507344671636--4c6d8667.15dea36b84d.-7ee8</con3:id>
                     <con2:case>
                       <con2:condition>
-                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">empty($ValidateZahteviIzvrsitelja/xsd1:datum/EMPTY)</con3:xqueryText>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">not(empty($body/xsd1:Request/xsd1:datum/EMPTY))</con3:xqueryText>
                       </con2:condition>
                       <con2:actions/>
                     </con2:case>
