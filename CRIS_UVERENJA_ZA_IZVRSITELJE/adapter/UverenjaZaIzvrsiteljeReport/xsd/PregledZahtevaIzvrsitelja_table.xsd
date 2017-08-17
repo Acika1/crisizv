@@ -1,0 +1,68 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/PregledZahtevaIzvrsitelja" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/PregledZahtevaIzvrsitelja" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="CmZahtevZaglavljeCollection" type="CmZahtevZaglavljeCollection"/>
+   <xs:complexType name="CmZahtevZaglavljeCollection">
+      <xs:sequence>
+         <xs:element name="CmZahtevZaglavlje" type="CmZahtevZaglavlje" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CmZahtevZaglavlje">
+      <xs:sequence>
+         <xs:element name="cmZzaId" type="xs:long"/>
+         <xs:element name="cmJmbgIzvrsitelja" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="13"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="cmImePrezime" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="512"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="cmDatum" type="xs:dateTime" minOccurs="0"/>
+         <xs:element name="cmZahtevDetaljiCollection" minOccurs="0">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="CmZahtevDetalji" type="CmZahtevDetalji" minOccurs="0" maxOccurs="unbounded"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CmZahtevDetalji">
+      <xs:sequence>
+         <xs:element name="cmJmbg" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="13"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="cmIme" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="256"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="cmPrezime" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="256"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="PregledZahtevaIzvrsiteljaSelect_jmbgIzvrsitelja_datumInputParameters" type="PregledZahtevaIzvrsiteljaSelect_jmbgIzvrsitelja_datum"/>
+   <xs:complexType name="PregledZahtevaIzvrsiteljaSelect_jmbgIzvrsitelja_datum">
+      <xs:sequence>
+         <xs:element name="jmbgIzvrsitelja" type="xs:string" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="datum" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

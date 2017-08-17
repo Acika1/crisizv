@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ser:coreEntry isProxy="true" isEnabled="true">
+    <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
+      <con:wsdl ref="CRIS_UVERENJA_ZA_IZVRSITELJE/wsdl/PregledZahteva"/>
+      <con:port>
+        <con:name>PregledZahtevaSOAP</con:name>
+        <con:namespace>http://cr.services/xsd</con:namespace>
+      </con:port>
+      <con:selector type="SOAP action"/>
+      <con:WSI-compliant>false</con:WSI-compliant>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+      <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>http</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:URI>
+      <env:value>/CRIS_IZVRSITELJI/proxy/PregledZahteva</env:value>
+    </tran:URI>
+    <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
+    <tran:provider-specific>
+      <http:inbound-properties/>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router>
+    <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:route-node name="RouteToProcedure">
+        <con:context>
+          <con1:varNsDecl namespace="http://cr.services/xsd" prefix="xsd1" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1265025507344671636--4c6d8667.15dea36b84d.-7f7a</con2:id>
+            <con1:service ref="CRIS_UVERENJA_ZA_IZVRSITELJE/business/PregledZahtevaIzvrsitelja" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con1:operation>PregledZahtevaIzvrsiteljaSelect</con1:operation>
+            <con1:outboundTransform>
+              <con2:assign varName="report" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1265025507344671636--4c6d8667.15dea36b84d.-7f6a</con3:id>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$body</con3:xqueryText>
+                </con2:expr>
+              </con2:assign>
+              <con2:assign varName="ValidateZahteviIzvrsitelja" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1265025507344671636--4c6d8667.15dea36b84d.-7f3f</con3:id>
+                <con2:expr>
+                  <con3:xqueryTransform xmlns:con3="http://www.bea.com/wli/sb/stages/config">
+                    <con3:resource ref="CRIS_UVERENJA_ZA_IZVRSITELJE/transformation/ValidateZahteviIzvrsitelja"/>
+                    <con3:param name="request1">
+                      <con3:path>$body/xsd1:Request</con3:path>
+                    </con3:param>
+                  </con3:xqueryTransform>
+                </con2:expr>
+              </con2:assign>
+              <con2:ifThenElse xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+                <con3:comment xmlns:con3="http://www.bea.com/wli/sb/stages/config">Sintaksne i logicke provere zahteva.</con3:comment>
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1265025507344671636--4c6d8667.15dea36b84d.-7f24</con3:id>
+                <con2:case>
+                  <con2:condition>
+                    <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">not(empty($ValidateZahteviIzvrsitelja/EMPTY))</con3:xqueryText>
+                  </con2:condition>
+                  <con2:actions>
+                    <con2:Error>
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1265025507344671636--4c6d8667.15dea36b84d.-7efd</con3:id>
+                      <con2:errCode>CRIS-E004</con2:errCode>
+                      <con2:message>Morate uneti jmbg za pretragu.</con2:message>
+                    </con2:Error>
+                  </con2:actions>
+                </con2:case>
+                <con2:default>
+                  <con2:validate>
+                    <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1265025507344671636--4c6d8667.15dea36b84d.-7f13</con3:id>
+                    <con2:wsdl ref="CRIS_UVERENJA_ZA_IZVRSITELJE/wsdl/PregledZahteva"/>
+                    <con2:schemaElement xmlns:xsd="http://cr.services/xsd">xsd:Request</con2:schemaElement>
+                    <con2:varName>ValidateZahteviIzvrsitelja</con2:varName>
+                    <con2:location>
+                      <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">.</con3:xpathText>
+                    </con2:location>
+                  </con2:validate>
+                  <con2:ifThenElse>
+                    <con3:comment xmlns:con3="http://www.bea.com/wli/sb/stages/config">Provera datuma.</con3:comment>
+                    <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1265025507344671636--4c6d8667.15dea36b84d.-7ee8</con3:id>
+                    <con2:case>
+                      <con2:condition>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">empty($ValidateZahteviIzvrsitelja/xsd1:datum/EMPTY)</con3:xqueryText>
+                      </con2:condition>
+                      <con2:actions/>
+                    </con2:case>
+                    <con2:default/>
+                  </con2:ifThenElse>
+                </con2:default>
+              </con2:ifThenElse>
+            </con1:outboundTransform>
+            <con1:responseTransform/>
+          </con1:route>
+        </con:actions>
+      </con:route-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

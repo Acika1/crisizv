@@ -1,0 +1,25 @@
+<?binding.jca PregledZahtevaIzvrsitelja_db.jca?>
+<wsdl:definitions name="PregledZahtevaIzvrsitelja" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/UverenjaZaIzvrsiteljeReport/UverenjaZaIzvrsiteljeReport/PregledZahtevaIzvrsitelja" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/UverenjaZaIzvrsiteljeReport/UverenjaZaIzvrsiteljeReport/PregledZahtevaIzvrsitelja" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/PregledZahtevaIzvrsitelja">
+    <plt:partnerLinkType name="PregledZahtevaIzvrsitelja_plt">
+        <plt:role name="PregledZahtevaIzvrsitelja_role">
+            <plt:portType name="tns:PregledZahtevaIzvrsitelja_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/PregledZahtevaIzvrsitelja" schemaLocation="xsd/PregledZahtevaIzvrsitelja_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="PregledZahtevaIzvrsiteljaSelect_inputParameters">
+        <wsdl:part name="PregledZahtevaIzvrsiteljaSelect_inputParameters" element="top:PregledZahtevaIzvrsiteljaSelect_jmbgIzvrsitelja_datumInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="CmZahtevZaglavljeCollection_msg">
+        <wsdl:part name="CmZahtevZaglavljeCollection" element="top:CmZahtevZaglavljeCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="PregledZahtevaIzvrsitelja_ptt">
+        <wsdl:operation name="PregledZahtevaIzvrsiteljaSelect">
+            <wsdl:input message="tns:PregledZahtevaIzvrsiteljaSelect_inputParameters"/>
+            <wsdl:output message="tns:CmZahtevZaglavljeCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
