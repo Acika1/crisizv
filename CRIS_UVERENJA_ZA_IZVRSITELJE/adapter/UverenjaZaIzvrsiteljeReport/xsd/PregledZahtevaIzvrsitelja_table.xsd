@@ -35,6 +35,7 @@
    </xs:complexType>
    <xs:complexType name="CmZahtevDetalji">
       <xs:sequence>
+         <xs:element name="cmZdtId" type="xs:long" minOccurs="0"/>
          <xs:element name="cmJmbg" minOccurs="0">
             <xs:simpleType>
                <xs:restriction base="xs:string">

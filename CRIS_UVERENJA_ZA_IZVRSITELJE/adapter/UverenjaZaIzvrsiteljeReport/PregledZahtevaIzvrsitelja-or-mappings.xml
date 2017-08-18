@@ -21,7 +21,7 @@
                      </argument>
                   </arguments>
                   <call xsi:type="sql-call">
-                     <sql>SELECT CM_JMBG_IZVRSITELJA, CM_IME_PREZIME, CM_DATUM, CM_JMBG, CM_IME, CM_PREZIME
+                     <sql>SELECT CM_JMBG_IZVRSITELJA, CM_IME_PREZIME, CM_DATUM, CM_ZAHTEV_DETALJI.CM_ZZA_ID CM_JMBG, CM_IME, CM_PREZIME
 FROM CM_ZAHTEV_ZAGLAVLJE JOIN CM_ZAHTEV_DETALJI
 ON CM_ZAHTEV_ZAGLAVLJE.CM_ZZA_ID = CM_ZAHTEV_DETALJI.CM_ZZA_ID
 WHERE (CM_JMBG_IZVRSITELJA = jmbgIzvrsitelja AND CM_DATUM >= datum)</sql>
@@ -169,11 +169,6 @@ WHERE (CM_JMBG_IZVRSITELJA = jmbgIzvrsitelja AND CM_DATUM >= datum)</sql>
          <attribute-mappings>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>cmZdtId</attribute-name>
-               <properties>
-                  <property name="enabled">
-                     <value>false</value>
-                  </property>
-               </properties>
                <field table="CM_ZAHTEV_DETALJI" name="CM_ZDT_ID" xsi:type="column"/>
                <attribute-classification>java.lang.Long</attribute-classification>
             </attribute-mapping>
