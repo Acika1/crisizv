@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/stages/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/stages/config" xmlns:con1="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
       <con:wsdl ref="CRIS_UVERENJA_ZA_IZVRSITELJE/wsdl/PregledZahteva"/>
@@ -40,7 +40,12 @@
       <http:inbound-properties/>
     </tran:provider-specific>
   </ser:endpointConfig>
-  <ser:router>
+  <ser:router errorHandler="_onErrorHandler-564707109169995058--202e3fe6.15df478a18f.-7f0f">
+    <con1:pipeline type="error" name="_onErrorHandler-564707109169995058--202e3fe6.15df478a18f.-7f0f">
+      <con1:stage name="ErrorHandler">
+        <con1:context/>
+      </con1:stage>
+    </con1:pipeline>
     <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
       <con:route-node name="RouteToProcedure">
         <con:context>
@@ -52,13 +57,13 @@
             <con1:service ref="CRIS_UVERENJA_ZA_IZVRSITELJE/business/PregledZahtevaIzvrsitelja" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
             <con1:operation>PregledZahtevaIzvrsiteljaSelect</con1:operation>
             <con1:outboundTransform>
-              <con2:assign varName="trenutniDatum" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+              <con2:assign varName="trenutniDatum">
                 <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7faa</con3:id>
                 <con2:expr>
                   <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">fn:current-date()</con3:xqueryText>
                 </con2:expr>
               </con2:assign>
-              <con2:ifThenElse xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+              <con2:ifThenElse>
                 <con3:comment xmlns:con3="http://www.bea.com/wli/sb/stages/config">Provera datuma.</con3:comment>
                 <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7fda</con3:id>
                 <con2:case>
@@ -96,7 +101,7 @@
                   </con2:ifThenElse>
                 </con2:default>
               </con2:ifThenElse>
-              <con2:replace varName="body" contents-only="true" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+              <con2:replace varName="body" contents-only="true">
                 <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7f2b</con3:id>
                 <con2:location>
                   <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">.</con3:xpathText>
@@ -111,7 +116,22 @@
                 </con2:expr>
               </con2:replace>
             </con1:outboundTransform>
-            <con1:responseTransform/>
+            <con1:responseTransform>
+              <con2:replace varName="body" contents-only="true">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7f10</con3:id>
+                <con2:location>
+                  <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">.</con3:xpathText>
+                </con2:location>
+                <con2:expr>
+                  <con3:xqueryTransform xmlns:con3="http://www.bea.com/wli/sb/stages/config">
+                    <con3:resource ref="CRIS_UVERENJA_ZA_IZVRSITELJE/transformation/PregledZahtevaFromDb"/>
+                    <con3:param name="cmZahtevZaglavljeCollection1">
+                      <con3:path>$body/xsd1:Response</con3:path>
+                    </con3:param>
+                  </con3:xqueryTransform>
+                </con2:expr>
+              </con2:replace>
+            </con1:responseTransform>
           </con1:route>
         </con:actions>
       </con:route-node>
