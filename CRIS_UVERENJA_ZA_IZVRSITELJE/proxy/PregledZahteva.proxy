@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/stages/config" xmlns:con1="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/stages/config" xmlns:con1="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/logging/config">
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
       <con:wsdl ref="CRIS_UVERENJA_ZA_IZVRSITELJE/wsdl/PregledZahteva"/>
@@ -46,8 +46,73 @@
         <con1:context/>
       </con1:stage>
     </con1:pipeline>
+    <con1:pipeline type="request" name="PipelinePairNode1_request">
+      <con1:stage name="Validate">
+        <con1:context>
+          <con:varNsDecl namespace="http://cr.services/xsd" prefix="xsd1"/>
+        </con1:context>
+        <con1:actions>
+          <con2:ifThenElse>
+            <con:comment>Provera datuma.</con:comment>
+            <con:id>_ActionId-564707109169995058--202e3fe6.15df478a18f.-7ec9</con:id>
+            <con2:case>
+              <con2:condition>
+                <con:xqueryText>empty($body/xsd1:Request/xsd1:datum)</con:xqueryText>
+              </con2:condition>
+              <con2:actions>
+                <con2:replace varName="body">
+                  <con:id>_ActionId-564707109169995058--202e3fe6.15df478a18f.-7e68</con:id>
+                  <con2:location>
+                    <con:xpathText>./xsd1:Request/xsd1:datum</con:xpathText>
+                  </con2:location>
+                  <con2:expr>
+                    <con:xqueryText>fn:current-date() - xdt:dayTimeDuration("P7D")</con:xqueryText>
+                  </con2:expr>
+                </con2:replace>
+              </con2:actions>
+            </con2:case>
+            <con2:default>
+              <con2:ifThenElse>
+                <con:id>_ActionId-564707109169995058--202e3fe6.15df478a18f.-7e55</con:id>
+                <con2:case>
+                  <con2:condition>
+                    <con:xqueryText>$body/xsd1:Request/xsd1:datum > fn:current-date()</con:xqueryText>
+                  </con2:condition>
+                  <con2:actions>
+                    <con2:Error>
+                      <con:id>_ActionId-564707109169995058--202e3fe6.15df478a18f.-7e2e</con:id>
+                      <con2:errCode>CRIS-E001</con2:errCode>
+                      <con2:message>Morate uneti datum koji nije veci od danasnjeg.</con2:message>
+                    </con2:Error>
+                  </con2:actions>
+                </con2:case>
+                <con2:default/>
+              </con2:ifThenElse>
+            </con2:default>
+          </con2:ifThenElse>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con1:pipeline type="response" name="PipelinePairNode1_response">
+      <con1:stage name="ValidateFault">
+        <con1:context/>
+        <con1:actions/>
+      </con1:stage>
+      <con1:stage name="Report">
+        <con1:context/>
+        <con1:actions>
+          <con3:report>
+            <con:id>_ActionId-564707109169995058--202e3fe6.15df478a18f.-7dc0</con:id>
+          </con3:report>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
     <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
-      <con:route-node name="RouteToProcedure">
+      <con:pipeline-node name="PipelinePairNode1">
+        <con:request>PipelinePairNode1_request</con:request>
+        <con:response>PipelinePairNode1_response</con:response>
+      </con:pipeline-node>
+      <con:route-node name="CallETPM">
         <con:context>
           <con1:varNsDecl namespace="http://cr.services/xsd" prefix="xsd1" xmlns:con1="http://www.bea.com/wli/sb/stages/config"/>
         </con:context>
@@ -57,80 +122,60 @@
             <con1:service ref="CRIS_UVERENJA_ZA_IZVRSITELJE/business/PregledZahtevaIzvrsitelja" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
             <con1:operation>PregledZahtevaIzvrsiteljaSelect</con1:operation>
             <con1:outboundTransform>
-              <con2:assign varName="trenutniDatum">
-                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7faa</con3:id>
+              <con2:assign varName="preTransformacijeReq">
+                <con4:id xmlns:con4="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7faa</con4:id>
                 <con2:expr>
-                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">fn:current-date()</con3:xqueryText>
+                  <con4:xqueryText xmlns:con4="http://www.bea.com/wli/sb/stages/config">$body</con4:xqueryText>
                 </con2:expr>
               </con2:assign>
-              <con2:ifThenElse>
-                <con3:comment xmlns:con3="http://www.bea.com/wli/sb/stages/config">Provera datuma.</con3:comment>
-                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7fda</con3:id>
-                <con2:case>
-                  <con2:condition>
-                    <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">empty($body/xsd1:Request/xsd1:datum)</con3:xqueryText>
-                  </con2:condition>
-                  <con2:actions>
-                    <con2:replace varName="body" contents-only="true">
-                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7f8f</con3:id>
-                      <con2:location>
-                        <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">./xsd1:Request/xsd1:datum</con3:xpathText>
-                      </con2:location>
-                      <con2:expr>
-                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$trenutniDatum - xdt:dayTimeDuration("P7D")</con3:xqueryText>
-                      </con2:expr>
-                    </con2:replace>
-                  </con2:actions>
-                </con2:case>
-                <con2:default>
-                  <con2:ifThenElse>
-                    <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7f60</con3:id>
-                    <con2:case>
-                      <con2:condition>
-                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$body/xsd1:Request/xsd1:datum > $trenutniDatum</con3:xqueryText>
-                      </con2:condition>
-                      <con2:actions>
-                        <con2:Error>
-                          <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7f43</con3:id>
-                          <con2:errCode>CRIS-E001</con2:errCode>
-                          <con2:message>Morate uneti datum koji nije veći od današnjeg.</con2:message>
-                        </con2:Error>
-                      </con2:actions>
-                    </con2:case>
-                    <con2:default/>
-                  </con2:ifThenElse>
-                </con2:default>
-              </con2:ifThenElse>
               <con2:replace varName="body" contents-only="true">
-                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7f2b</con3:id>
+                <con4:id xmlns:con4="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7f2b</con4:id>
                 <con2:location>
-                  <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">.</con3:xpathText>
+                  <con4:xpathText xmlns:con4="http://www.bea.com/wli/sb/stages/config">.</con4:xpathText>
                 </con2:location>
                 <con2:expr>
-                  <con3:xqueryTransform xmlns:con3="http://www.bea.com/wli/sb/stages/config">
-                    <con3:resource ref="CRIS_UVERENJA_ZA_IZVRSITELJE/transformation/PregledZahtevaToDb"/>
-                    <con3:param name="request1">
-                      <con3:path>$body/xsd1:Request</con3:path>
-                    </con3:param>
-                  </con3:xqueryTransform>
+                  <con4:xqueryTransform xmlns:con4="http://www.bea.com/wli/sb/stages/config">
+                    <con4:resource ref="CRIS_UVERENJA_ZA_IZVRSITELJE/transformation/PregledZahtevaToDb"/>
+                    <con4:param name="request1">
+                      <con4:path>$body/xsd1:Request</con4:path>
+                    </con4:param>
+                  </con4:xqueryTransform>
                 </con2:expr>
               </con2:replace>
+              <con2:assign varName="posleTransformacijeReq">
+                <con4:id xmlns:con4="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7e1a</con4:id>
+                <con2:expr>
+                  <con4:xqueryText xmlns:con4="http://www.bea.com/wli/sb/stages/config">$body</con4:xqueryText>
+                </con2:expr>
+              </con2:assign>
             </con1:outboundTransform>
             <con1:responseTransform>
+              <con2:assign varName="preTransformacijeResp">
+                <con4:id xmlns:con4="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7e0c</con4:id>
+                <con2:expr>
+                  <con4:xqueryText xmlns:con4="http://www.bea.com/wli/sb/stages/config">$body</con4:xqueryText>
+                </con2:expr>
+              </con2:assign>
               <con2:replace varName="body" contents-only="true">
-                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7f10</con3:id>
+                <con4:id xmlns:con4="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7f10</con4:id>
                 <con2:location>
-                  <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">.</con3:xpathText>
+                  <con4:xpathText xmlns:con4="http://www.bea.com/wli/sb/stages/config">.</con4:xpathText>
                 </con2:location>
                 <con2:expr>
-                  <con3:xqueryTransform xmlns:con3="http://www.bea.com/wli/sb/stages/config">
-                    <con3:resource ref="CRIS_UVERENJA_ZA_IZVRSITELJE/transformation/PregledZahtevaFromDb"/>
-                    <con3:param name="cmZahtevZaglavljeCollection1">
-                      <con3:path>$body/xsd1:Response</con3:path>
-                    </con3:param>
-                  </con3:xqueryTransform>
+                  <con4:xqueryTransform xmlns:con4="http://www.bea.com/wli/sb/stages/config">
+                    <con4:resource ref="CRIS_UVERENJA_ZA_IZVRSITELJE/transformation/PregledZahtevaFromDb"/>
+                    <con4:param name="cmZahtevZaglavljeCollection1">
+                      <con4:path>$body/xsd1:Response</con4:path>
+                    </con4:param>
+                  </con4:xqueryTransform>
                 </con2:expr>
               </con2:replace>
+              <con2:assign varName="posleTransformacijeResp">
+                <con4:id xmlns:con4="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7dfa</con4:id>
+                <con2:expr>
+                  <con4:xqueryText xmlns:con4="http://www.bea.com/wli/sb/stages/config">$body</con4:xqueryText>
+                </con2:expr>
+              </con2:assign>
             </con1:responseTransform>
           </con1:route>
         </con:actions>
