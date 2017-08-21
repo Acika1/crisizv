@@ -47,8 +47,33 @@
           <con:userNsDecl namespace="http://cr.services/xsd" prefix="xsd1"/>
         </con1:context>
         <con1:actions>
+          <con2:replace varName="body" contents-only="true">
+            <con:id>_ActionId-9223080009853163558--4368babf.15e04765acb.-7fd8</con:id>
+            <con2:location>
+              <con:xpathText>.</con:xpathText>
+            </con2:location>
+            <con2:expr>
+              <con:xqueryTransform>
+                <con:resource ref="CRIS_UVERENJA_ZA_IZVRSITELJE/transformation/PregledZahtevaErrorHandler"/>
+                <con:param name="fault1">
+                  <con:path>$fault</con:path>
+                </con:param>
+              </con:xqueryTransform>
+            </con2:expr>
+          </con2:replace>
+          <con2:replace varName="body" contents-only="true">
+            <con:id>_ActionId-9223080009853163558--4368babf.15e04765acb.-7fb3</con:id>
+            <con2:location>
+              <con:xpathText>.</con:xpathText>
+            </con2:location>
+            <con2:expr>
+              <con:xqueryText>&lt;xsd1:Response>
+{$body/*}
+&lt;/xsd1:Response></con:xqueryText>
+            </con2:expr>
+          </con2:replace>
           <con3:report>
-            <con:id>_ActionId-1518898367185510667--516bfbe4.15e03c523c6.-7e86</con:id>
+            <con:id>_ActionId-9223080009853163558--4368babf.15e04765acb.-7f63</con:id>
             <con3:expr>
               <con:xqueryText>$fault</con:xqueryText>
             </con3:expr>
@@ -66,18 +91,56 @@
                 <con:xpathText>./ctx:reason</con:xpathText>
               </con3:value>
             </con3:labels>
+          </con3:report>
+          <con3:report>
+            <con:id>_ActionId-9223080009853163558--4368babf.15e04765acb.-7f46</con:id>
+            <con3:expr>
+              <con:xqueryText>$preTransformacijeReq</con:xqueryText>
+            </con3:expr>
             <con3:labels>
-              <con3:key>details</con3:key>
-              <con3:varName>fault</con3:varName>
+              <con3:key>var1</con3:key>
+              <con3:varName>preTransformacijeReq</con3:varName>
               <con3:value>
-                <con:xpathText>./ctx:details</con:xpathText>
+                <con:xpathText>.</con:xpathText>
               </con3:value>
             </con3:labels>
+          </con3:report>
+          <con3:report>
+            <con:id>_ActionId-9223080009853163558--4368babf.15e04765acb.-7f15</con:id>
+            <con3:expr>
+              <con:xqueryText>$posleTranformacijeReq</con:xqueryText>
+            </con3:expr>
             <con3:labels>
-              <con3:key>PregledZahteva-detajli</con3:key>
-              <con3:varName>body</con3:varName>
+              <con3:key>var2</con3:key>
+              <con3:varName>posleTranformacijeReq</con3:varName>
               <con3:value>
-                <con:xpathText>./xsd1:Response/xsd1:CommonResponse/xsd1:greska/xsd1:detalji</con:xpathText>
+                <con:xpathText>.</con:xpathText>
+              </con3:value>
+            </con3:labels>
+          </con3:report>
+          <con3:report>
+            <con:id>_ActionId-9223080009853163558--4368babf.15e04765acb.-7efb</con:id>
+            <con3:expr>
+              <con:xqueryText>$preTransformacijeResp</con:xqueryText>
+            </con3:expr>
+            <con3:labels>
+              <con3:key>var3</con3:key>
+              <con3:varName>preTransformacijeResp</con3:varName>
+              <con3:value>
+                <con:xpathText>.</con:xpathText>
+              </con3:value>
+            </con3:labels>
+          </con3:report>
+          <con3:report>
+            <con:id>_ActionId-9223080009853163558--4368babf.15e04765acb.-7ece</con:id>
+            <con3:expr>
+              <con:xqueryText>$posleTransformacijeResp</con:xqueryText>
+            </con3:expr>
+            <con3:labels>
+              <con3:key>var4</con3:key>
+              <con3:varName>posleTransformacijeResp</con3:varName>
+              <con3:value>
+                <con:xpathText>.</con:xpathText>
               </con3:value>
             </con3:labels>
           </con3:report>
@@ -122,7 +185,7 @@
                   <con2:actions>
                     <con2:Error>
                       <con:id>_ActionId-564707109169995058--202e3fe6.15df478a18f.-7e2e</con:id>
-                      <con2:errCode>CRIS-E001</con2:errCode>
+                      <con2:errCode>CRIS-S001</con2:errCode>
                       <con2:message>Morate uneti datum koji nije veci od danasnjeg.</con2:message>
                     </con2:Error>
                   </con2:actions>
@@ -150,7 +213,7 @@
               <con2:actions>
                 <con2:Error>
                   <con:id>_ActionId-1518898367185510667--516bfbe4.15e03c523c6.-7fc5</con:id>
-                  <con2:errCode>CRIS-E002</con2:errCode>
+                  <con2:errCode>CRIS-S002</con2:errCode>
                   <con2:message>Greska pri konekciji na bazu.</con2:message>
                 </con2:Error>
               </con2:actions>
