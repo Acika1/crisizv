@@ -60,7 +60,7 @@
                 <con:xqueryText>empty($body/xsd1:Request/xsd1:datum)</con:xqueryText>
               </con2:condition>
               <con2:actions>
-                <con2:replace varName="body">
+                <con2:replace varName="body" contents-only="true">
                   <con:id>_ActionId-564707109169995058--202e3fe6.15df478a18f.-7e68</con:id>
                   <con2:location>
                     <con:xpathText>./xsd1:Request/xsd1:datum</con:xpathText>
