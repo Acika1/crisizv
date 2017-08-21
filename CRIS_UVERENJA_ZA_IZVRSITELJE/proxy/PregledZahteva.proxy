@@ -73,32 +73,12 @@
             </con2:expr>
           </con2:replace>
           <con3:report>
-            <con:id>_ActionId-9223080009853163558--4368babf.15e04765acb.-7f63</con:id>
-            <con3:expr>
-              <con:xqueryText>$fault</con:xqueryText>
-            </con3:expr>
-            <con3:labels>
-              <con3:key>errorCode</con3:key>
-              <con3:varName>fault</con3:varName>
-              <con3:value>
-                <con:xpathText>./ctx:errorCode</con:xpathText>
-              </con3:value>
-            </con3:labels>
-            <con3:labels>
-              <con3:key>reason</con3:key>
-              <con3:varName>fault</con3:varName>
-              <con3:value>
-                <con:xpathText>./ctx:reason</con:xpathText>
-              </con3:value>
-            </con3:labels>
-          </con3:report>
-          <con3:report>
             <con:id>_ActionId-9223080009853163558--4368babf.15e04765acb.-7f46</con:id>
             <con3:expr>
               <con:xqueryText>$preTransformacijeReq</con:xqueryText>
             </con3:expr>
             <con3:labels>
-              <con3:key>var1</con3:key>
+              <con3:key>Request</con3:key>
               <con3:varName>preTransformacijeReq</con3:varName>
               <con3:value>
                 <con:xpathText>.</con:xpathText>
@@ -111,7 +91,7 @@
               <con:xqueryText>$posleTranformacijeReq</con:xqueryText>
             </con3:expr>
             <con3:labels>
-              <con3:key>var2</con3:key>
+              <con3:key>DbRequest</con3:key>
               <con3:varName>posleTranformacijeReq</con3:varName>
               <con3:value>
                 <con:xpathText>.</con:xpathText>
@@ -124,7 +104,7 @@
               <con:xqueryText>$preTransformacijeResp</con:xqueryText>
             </con3:expr>
             <con3:labels>
-              <con3:key>var3</con3:key>
+              <con3:key>DbResponse</con3:key>
               <con3:varName>preTransformacijeResp</con3:varName>
               <con3:value>
                 <con:xpathText>.</con:xpathText>
@@ -132,13 +112,13 @@
             </con3:labels>
           </con3:report>
           <con3:report>
-            <con:id>_ActionId-9223080009853163558--4368babf.15e04765acb.-7ece</con:id>
+            <con:id>_ActionId-9223080009853163558--4368babf.15e04765acb.-7eca</con:id>
             <con3:expr>
-              <con:xqueryText>$posleTransformacijeResp</con:xqueryText>
+              <con:xqueryText>$body</con:xqueryText>
             </con3:expr>
             <con3:labels>
-              <con3:key>var4</con3:key>
-              <con3:varName>posleTransformacijeResp</con3:varName>
+              <con3:key>Error</con3:key>
+              <con3:varName>body</con3:varName>
               <con3:value>
                 <con:xpathText>.</con:xpathText>
               </con3:value>
@@ -197,32 +177,7 @@
         </con1:actions>
       </con1:stage>
     </con1:pipeline>
-    <con1:pipeline type="response" name="PipelinePairNode1_response">
-      <con1:stage name="ValidateFault">
-        <con1:context>
-          <con:varNsDecl namespace="http://cr.services/xsd" prefix="xsd1"/>
-        </con1:context>
-        <con1:actions>
-          <con2:ifThenElse>
-            <con:comment>Provera konekcije na bazu.</con:comment>
-            <con:id>_ActionId-1518898367185510667--516bfbe4.15e03c523c6.-7fec</con:id>
-            <con2:case>
-              <con2:condition>
-                <con:xqueryText>not(fn:exists($body/soap-env:Fault))</con:xqueryText>
-              </con2:condition>
-              <con2:actions>
-                <con2:Error>
-                  <con:id>_ActionId-1518898367185510667--516bfbe4.15e03c523c6.-7fc5</con:id>
-                  <con2:errCode>CRIS-S002</con2:errCode>
-                  <con2:message>Greška pri povezivanju na bazu.</con2:message>
-                </con2:Error>
-              </con2:actions>
-            </con2:case>
-            <con2:default/>
-          </con2:ifThenElse>
-        </con1:actions>
-      </con1:stage>
-    </con1:pipeline>
+    <con1:pipeline type="response" name="PipelinePairNode1_response"></con1:pipeline>
     <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
       <con:pipeline-node name="PipelinePairNode1">
         <con:request>PipelinePairNode1_request</con:request>
@@ -272,6 +227,23 @@
                   <con4:xqueryText xmlns:con4="http://www.bea.com/wli/sb/stages/config">$body</con4:xqueryText>
                 </con2:expr>
               </con2:assign>
+              <con2:ifThenElse>
+                <con5:comment xmlns:con5="http://www.bea.com/wli/sb/stages/config">Provera konekcije na bazu.</con5:comment>
+                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-9223080009853163558--4368babf.15e04765acb.-7eb2</con5:id>
+                <con2:case>
+                  <con2:condition>
+                    <con5:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">not(fn:exists($body/soap-env:Fault))</con5:xqueryText>
+                  </con2:condition>
+                  <con2:actions>
+                    <con2:Error>
+                      <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-9223080009853163558--4368babf.15e04765acb.-7e89</con5:id>
+                      <con2:errCode>CRIS-S002</con2:errCode>
+                      <con2:message>Greška pri povezivanju na bazu.</con2:message>
+                    </con2:Error>
+                  </con2:actions>
+                </con2:case>
+                <con2:default/>
+              </con2:ifThenElse>
               <con2:replace varName="body" contents-only="true">
                 <con4:id xmlns:con4="http://www.bea.com/wli/sb/stages/config">_ActionId-564707109169995058--202e3fe6.15df478a18f.-7f10</con4:id>
                 <con2:location>
