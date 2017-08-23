@@ -2,7 +2,7 @@
 <xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:env="http://www.bea.com/wli/config/env">
   <ser:coreEntry isProxy="false" isEnabled="true">
     <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
-      <con:wsdl ref="CRIS_UVERENJA_ZA_IZVRSITELJE/ReportService"/>
+      <con:wsdl ref="CRIS_UVERENJA_ZA_IZVRSITELJE/wsdl/ReportService"/>
       <con:port>
         <con:name>ReportService</con:name>
         <con:namespace>http://xmlns.oracle.com/oxp/service/v2</con:namespace>

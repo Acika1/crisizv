@@ -1,0 +1,14 @@
+<adapter-config name="GetIdDetalja" adapter="Database Adapter" wsdlLocation="GetIdDetalja.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/EtpmTest" UIConnectionName="EtpmTest" adapterRef=""/>
+  <endpoint-interaction portType="GetIdDetalja_ptt" operation="GetIdDetaljaSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="GetIdDetalja.CmZahtevUverenje"/>
+      <property name="QueryName" value="GetIdDetaljaSelect"/>
+      <property name="MappingsMetaDataURL" value="GetIdDetalja-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

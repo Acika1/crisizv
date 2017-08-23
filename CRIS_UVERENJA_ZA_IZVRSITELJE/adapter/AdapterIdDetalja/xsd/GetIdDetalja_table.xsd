@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/GetIdDetalja" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/GetIdDetalja" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="CmZahtevUverenjeCollection" type="CmZahtevUverenjeCollection"/>
+   <xs:complexType name="CmZahtevUverenjeCollection">
+      <xs:sequence>
+         <xs:element name="CmZahtevUverenje" type="CmZahtevUverenje" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CmZahtevUverenje">
+      <xs:sequence>
+         <xs:element name="cmZuvId" type="xs:long"/>
+         <xs:element name="cmZdtId" type="xs:long" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="GetIdDetaljaSelect_idDetaljaInputParameters" type="GetIdDetaljaSelect_idDetalja"/>
+   <xs:complexType name="GetIdDetaljaSelect_idDetalja">
+      <xs:sequence>
+         <xs:element name="idDetalja" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>
