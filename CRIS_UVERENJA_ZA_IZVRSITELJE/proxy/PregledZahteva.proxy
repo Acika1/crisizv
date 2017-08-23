@@ -124,9 +124,6 @@
               </con3:value>
             </con3:labels>
           </con3:report>
-          <con:reply isError="true">
-            <con:id>_ActionId-1518898367185510667--516bfbe4.15e03c523c6.-7e75</con:id>
-          </con:reply>
         </con1:actions>
       </con1:stage>
     </con1:pipeline>
@@ -177,7 +174,7 @@
         </con1:actions>
       </con1:stage>
     </con1:pipeline>
-    <con1:pipeline type="response" name="PipelinePairNode1_response"></con1:pipeline>
+    <con1:pipeline type="response" name="PipelinePairNode1_response"/>
     <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
       <con:pipeline-node name="PipelinePairNode1">
         <con:request>PipelinePairNode1_request</con:request>
