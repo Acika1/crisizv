@@ -38,11 +38,11 @@
    <entry key="CM_ZAHTEV_UVERENJE.CM_OSNOV_NAZIV:db_column_size">1000</entry>
    <entry key="CM_ZAHTEV_UVERENJE.CM_DATUM_POCETKA_OSIGURANJA:db_column_not_null">false</entry>
    <entry key="CM_ZAHTEV_UVERENJE.CM_NAZIV_OBVEZNIKA:db_column_not_null">false</entry>
-   <entry key="CM_ZAHTEV_UVERENJE.CM_PIB_OBVEZNIKA:db_column_not_null">false</entry>
-   <entry key="CM_ZAHTEV_UVERENJE.CM_OSNOV_SIFRA:db_column_type">VARCHAR2</entry>
    <entry key="CM_ZAHTEV_UVERENJE.CM_ZUV_ID:db_column_precision">10</entry>
-   <entry key="CM_ZAHTEV_UVERENJE.CM_USR_UPD:db_column_not_null">true</entry>
+   <entry key="CM_ZAHTEV_UVERENJE.CM_OSNOV_SIFRA:db_column_type">VARCHAR2</entry>
+   <entry key="CM_ZAHTEV_UVERENJE.CM_PIB_OBVEZNIKA:db_column_not_null">false</entry>
    <entry key="CM_ZAHTEV_UVERENJE.CM_ZUV_ID:db_column_type">NUMBER</entry>
+   <entry key="CM_ZAHTEV_UVERENJE.CM_USR_UPD:db_column_not_null">true</entry>
    <entry key="CM_ZAHTEV_UVERENJE.CM_ZDT_ID:db_column_scale">0</entry>
    <entry key="CM_ZAHTEV_UVERENJE.CM_DATUM_POCETKA_OSIGURANJA:db_column_type">VARCHAR2</entry>
    <entry key="CM_ZAHTEV_UVERENJE.CM_USR_INS:db_column_type">VARCHAR2</entry>
@@ -51,9 +51,9 @@
    <entry key="CM_ZAHTEV_UVERENJE.CM_IME:db_column_type">VARCHAR2</entry>
    <entry key="CM_ZAHTEV_UVERENJE.CM_DAT_INS:db_column_not_null">true</entry>
    <entry key="CM_ZAHTEV_UVERENJE:db_column_14">CM_UPD_REASON</entry>
-   <entry key="CM_ZAHTEV_UVERENJE:db_column_13">CM_USR_UPD</entry>
-   <entry key="CM_ZAHTEV_UVERENJE.CM_ZUV_ID:db_column_scale">0</entry>
    <entry key="CM_ZAHTEV_UVERENJE.CM_PREZIME:db_column_not_null">false</entry>
+   <entry key="CM_ZAHTEV_UVERENJE.CM_ZUV_ID:db_column_scale">0</entry>
+   <entry key="CM_ZAHTEV_UVERENJE:db_column_13">CM_USR_UPD</entry>
    <entry key="CM_ZAHTEV_UVERENJE:db_column_12">CM_DAT_UPD</entry>
    <entry key="CM_ZAHTEV_UVERENJE:db_column_11">CM_USR_INS</entry>
    <entry key="CM_ZAHTEV_UVERENJE:db_column_10">CM_DAT_INS</entry>

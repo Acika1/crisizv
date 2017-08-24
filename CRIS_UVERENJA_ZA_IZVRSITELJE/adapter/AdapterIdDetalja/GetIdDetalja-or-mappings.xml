@@ -18,7 +18,7 @@
                      </argument>
                   </arguments>
                   <call xsi:type="sql-call">
-                     <sql>SELECT COUNT(CM_ZUV_ID) FROM CM_ZAHTEV_UVERENJE WHERE CM_ZDT_ID = idDetalja</sql>
+                     <sql>SELECT COUNT(CM_ZUV_ID) FROM CM_ZAHTEV_UVERENJE WHERE CM_ZDT_ID = #idDetalja</sql>
                   </call>
                   <reference-class>GetIdDetalja.CmZahtevUverenje</reference-class>
                   <container xsi:type="list-container-policy">
