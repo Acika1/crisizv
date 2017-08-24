@@ -171,22 +171,6 @@
               </con2:ifThenElse>
             </con2:default>
           </con2:ifThenElse>
-          <con2:assign varName="datum">
-            <con:id>_ActionId-45701649361318413-3eece075.15e133badca.-7d05</con:id>
-            <con2:expr>
-              <con:xqueryText>$body/xsd1:Request/xsd1:datum</con:xqueryText>
-            </con2:expr>
-          </con2:assign>
-          <con2:replace varName="body" contents-only="true">
-            <con:id>_ActionId-45701649361318413-3eece075.15e133badca.-7cdf</con:id>
-            <con2:location>
-              <con:xpathText>./xsd1:Request/xsd1:datum</con:xpathText>
-            </con2:location>
-            <con2:expr>
-              <con:xqueryText>op:concatenate(fn:day-from-date($datum),op:concatenate('-',op:concatenate(fn:month-from-date($datum)),
-op:concatenate('-',fn:year-from-date($datum))))</con:xqueryText>
-            </con2:expr>
-          </con2:replace>
         </con1:actions>
       </con1:stage>
     </con1:pipeline>
