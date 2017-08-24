@@ -96,7 +96,7 @@
                     <con2:assign varName="path">
                       <con1:id>_ActionId-9031166593641156885-60e2e323.15e0e5734af.-7fbc</con1:id>
                       <con2:expr>
-                        <con1:xqueryText>"Path1"</con1:xqueryText>
+                        <con1:xqueryText>"http://10.10.20.18:9704/xmlpserver/ETPM/ETPM-117/CRIS0320R+report.xdo"</con1:xqueryText>
                       </con2:expr>
                     </con2:assign>
                   </con2:actions>
@@ -105,7 +105,7 @@
                   <con2:assign varName="path">
                     <con1:id>_ActionId-9031166593641156885-60e2e323.15e0e5734af.-7fa1</con1:id>
                     <con2:expr>
-                      <con1:xqueryText>"Path2"</con1:xqueryText>
+                      <con1:xqueryText>"http://10.10.20.18:9704/xmlpserver/ETPM/ETPM-117/CRIS0330R+report.xdo"</con1:xqueryText>
                     </con2:expr>
                   </con2:assign>
                 </con2:default>
