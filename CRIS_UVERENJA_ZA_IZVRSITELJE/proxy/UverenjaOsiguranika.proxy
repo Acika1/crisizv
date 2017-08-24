@@ -114,25 +114,25 @@
           </con2:wsCallout>
         </con:actions>
       </con:stage>
-    </con:pipeline>
-    <con:pipeline type="response" name="PipelinePairNode1_response"/>
-    <con:flow>
-      <con:pipeline-node name="PipelinePairNode1">
-        <con:request>PipelinePairNode1_request</con:request>
-        <con:response>PipelinePairNode1_response</con:response>
-      </con:pipeline-node>
-      <con:route-node name="CallBI">
+      <con:stage name="CallB">
         <con:context>
+          <con1:userNsDecl namespace="http://xmlns.oracle.com/oxp/service/v2" prefix="pdf"/>
           <con1:varNsDecl namespace="http://cr.services/xsd" prefix="xsd1"/>
         </con:context>
         <con:actions>
-          <con3:route>
-            <con1:id>_ActionId-9031166593641156885-60e2e323.15e0e5734af.-7f8b</con1:id>
-            <con3:service ref="CRIS_UVERENJA_ZA_IZVRSITELJE/business/UverenjaOsiguranika" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
-            <con3:operation>runReport</con3:operation>
-            <con3:outboundTransform>
+          <con2:wsCallout>
+            <con1:id>_ActionId-45701649361318413-3eece075.15e133badca.-7f30</con1:id>
+            <con2:service xsi:type="ref:BusinessServiceRef" ref="CRIS_UVERENJA_ZA_IZVRSITELJE/business/UverenjaOsiguranika" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con2:operation>runReport</con2:operation>
+            <con2:request>
+              <con2:body>$req1</con2:body>
+            </con2:request>
+            <con2:response>
+              <con2:body>res1</con2:body>
+            </con2:response>
+            <con2:requestTransform>
               <con2:replace varName="body" contents-only="true">
-                <con1:id>_ActionId-45701649361318413-3eece075.15e133badca.-7fcf</con1:id>
+                <con1:id>_ActionId-45701649361318413-3eece075.15e133badca.-7f2e</con1:id>
                 <con2:location>
                   <con1:xpathText>.</con1:xpathText>
                 </con2:location>
@@ -151,11 +151,46 @@
                   </con1:xqueryTransform>
                 </con2:expr>
               </con2:replace>
-            </con3:outboundTransform>
-            <con3:responseTransform/>
-          </con3:route>
+            </con2:requestTransform>
+            <con2:responseTransform>
+              <con2:assign varName="pdf">
+                <con1:id>_ActionId-45701649361318413-3eece075.15e133badca.-7f0b</con1:id>
+                <con2:expr>
+                  <con1:xqueryText>$res1/pdf:runReportResponse/pdf:runReportReturn/pdf:reportBytes</con1:xqueryText>
+                </con2:expr>
+              </con2:assign>
+              <con2:javaCallout varName="result">
+                <con1:id>_ActionId-45701649361318413-3eece075.15e133badca.-7eea</con1:id>
+                <con2:archive ref="CRIS_DATATYPES/jar/JavaForCRIS"/>
+                <con2:className>org.apache.commons.net.util.Base64</con2:className>
+                <con2:method>public static [B decodeBase64(java.lang.String)</con2:method>
+                <con2:expr>
+                  <con1:xqueryText>data($pdf)</con1:xqueryText>
+                </con2:expr>
+              </con2:javaCallout>
+              <con2:replace varName="attachment" contents-only="true">
+                <con1:id>_ActionId-45701649361318413-3eece075.15e133badca.-7ec3</con1:id>
+                <con2:location>
+                  <con1:xpathText>.</con1:xpathText>
+                </con2:location>
+                <con2:expr>
+                  <con1:xqueryText><![CDATA[<ctx:attachment>
+<ctx:Content-ID>PDF_Attachment</ctx:Content-ID>
+<ctx:body>{$result}</ctx:body>
+</ctx:attachment>]]></con1:xqueryText>
+                </con2:expr>
+              </con2:replace>
+            </con2:responseTransform>
+          </con2:wsCallout>
         </con:actions>
-      </con:route-node>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNode1_response"/>
+    <con:flow>
+      <con:pipeline-node name="PipelinePairNode1">
+        <con:request>PipelinePairNode1_request</con:request>
+        <con:response>PipelinePairNode1_response</con:response>
+      </con:pipeline-node>
     </con:flow>
   </ser:router>
 </xml-fragment>
