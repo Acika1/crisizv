@@ -138,7 +138,7 @@
             <con:id>_ActionId-564707109169995058--202e3fe6.15df478a18f.-7ec9</con:id>
             <con2:case>
               <con2:condition>
-                <con:xqueryText>empty($body/xsd1:Request/xsd1:datum) or not(exists($body/xsd1:Request/xsd1:datum))</con:xqueryText>
+                <con:xqueryText>not(empty($body/xsd1:Request/xsd1:datum)) or not(exists($body/xsd1:Request/xsd1:datum))</con:xqueryText>
               </con2:condition>
               <con2:actions>
                 <con2:replace varName="body" contents-only="true">
@@ -147,7 +147,8 @@
                     <con:xpathText>./xsd1:Request/xsd1:datum</con:xpathText>
                   </con2:location>
                   <con2:expr>
-                    <con:xqueryText>fn:current-date() - xdt:dayTimeDuration("P7D")</con:xqueryText>
+                    <con:xqueryText>op:concatenate(fn:year-from-date(fn:current-date()-xdt:dayTimeDuration("P7D")),op:concatenate('-',op:concatenate(fn:month-from-date(fn:current-date()-xdt:dayTimeDuration("P7D"))),
+op:concatenate('-',fn:day-from-date(fn:current-date()-xdt:dayTimeDuration("P7D")))))</con:xqueryText>
                   </con2:expr>
                 </con2:replace>
               </con2:actions>
@@ -235,7 +236,7 @@
                     <con2:Error>
                       <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-9223080009853163558--4368babf.15e04765acb.-7e89</con5:id>
                       <con2:errCode>CRIS-S002</con2:errCode>
-                      <con2:message>Greška pri povezivanju na bazu.</con2:message>
+                      <con2:message>Greška na bazi.</con2:message>
                     </con2:Error>
                   </con2:actions>
                 </con2:case>

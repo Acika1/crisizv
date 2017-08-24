@@ -12,10 +12,10 @@ declare function xf:PregledZahtevaFromDb($cmZahtevZaglavljeCollection1 as elemen
                 for $CmZahtevZaglavlje in $cmZahtevZaglavljeCollection1/ns1:CmZahtevZaglavlje
                 return
                     <ns0:ZaglavljeZahtevaIzvrsitelja>
-                        <ns0:id-zaglavlje>{ xs:int($CmZahtevZaglavlje/ns1:cmZzaId) }</ns0:id-zaglavlje>
+                        <ns0:id-zaglavlje>{ data(xs:int($CmZahtevZaglavlje/ns1:cmZzaId)) }</ns0:id-zaglavlje>
                         <ns0:jmbg-izvrsitelja>{ data($CmZahtevZaglavlje/ns1:cmJmbgIzvrsitelja) }</ns0:jmbg-izvrsitelja>
                         <ns0:ime-prezime-izvrsitelja>{ data($CmZahtevZaglavlje/ns1:cmImePrezime) }</ns0:ime-prezime-izvrsitelja>
-                        <ns0:cm-datum>{ xs:date($CmZahtevZaglavlje/ns1:cmDatum) }</ns0:cm-datum>
+                        <ns0:cm-datum>{ data(xs:date($CmZahtevZaglavlje/ns1:cmDatum)) }</ns0:cm-datum>
                         {
                             let $cmZahtevDetaljiCollection := $CmZahtevZaglavlje/ns1:cmZahtevDetaljiCollection
                             return

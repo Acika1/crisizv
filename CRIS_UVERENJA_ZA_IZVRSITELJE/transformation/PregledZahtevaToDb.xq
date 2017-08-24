@@ -9,7 +9,7 @@ declare function xf:PregledZahtevaToDb($request1 as element(ns0:Request))
     as element(ns1:PregledZahtevaIzvrsiteljaSelect_jmbgIzvrsitelja_datumInputParameters) {
         <ns1:PregledZahtevaIzvrsiteljaSelect_jmbgIzvrsitelja_datumInputParameters>
             <ns1:jmbgIzvrsitelja>{ data($request1/ns0:jmbg-izvrsitelja) }</ns1:jmbgIzvrsitelja>
-            <ns1:datum>{ xs:string($request1/ns0:datum) }</ns1:datum>
+            <ns1:datum>{ data(xs:string($request1/ns0:datum)) }</ns1:datum>
         </ns1:PregledZahtevaIzvrsiteljaSelect_jmbgIzvrsitelja_datumInputParameters>
 };
 
