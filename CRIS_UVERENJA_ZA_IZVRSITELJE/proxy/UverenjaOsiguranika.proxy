@@ -86,6 +86,23 @@
               </con2:replace>
             </con2:requestTransform>
             <con2:responseTransform>
+              <con2:ifThenElse xmlns:con3="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con4="http://www.bea.com/wli/sb/stages/alert/config" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+                <con5:comment xmlns:con5="http://www.bea.com/wli/sb/stages/config">Provera konekcije na bazu.</con5:comment>
+                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-45701649361318413-3eece075.15e133badca.-7e18</con5:id>
+                <con2:case>
+                  <con2:condition>
+                    <con5:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">not(fn:exists($res/soap-env:Fault))</con5:xqueryText>
+                  </con2:condition>
+                  <con2:actions>
+                    <con2:Error>
+                      <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-45701649361318413-3eece075.15e133badca.-7e17</con5:id>
+                      <con2:errCode>CRIS-S002</con2:errCode>
+                      <con2:message>Greška pri povezivanju na bazu.</con2:message>
+                    </con2:Error>
+                  </con2:actions>
+                </con2:case>
+                <con2:default/>
+              </con2:ifThenElse>
               <con2:ifThenElse>
                 <con1:id>_ActionId-3272220239112962367--f784738.15e0e17fe30.-7e6f</con1:id>
                 <con2:case>
