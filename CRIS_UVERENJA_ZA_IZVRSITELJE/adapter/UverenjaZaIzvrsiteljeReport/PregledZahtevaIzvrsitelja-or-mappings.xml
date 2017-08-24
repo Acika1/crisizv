@@ -24,7 +24,7 @@
                      <sql>SELECT CM_JMBG_IZVRSITELJA, CM_IME_PREZIME, CM_DATUM, CM_ZAHTEV_DETALJI.CM_ZZA_ID CM_JMBG, CM_IME, CM_PREZIME
 FROM CM_ZAHTEV_ZAGLAVLJE JOIN CM_ZAHTEV_DETALJI
 ON CM_ZAHTEV_ZAGLAVLJE.CM_ZZA_ID = CM_ZAHTEV_DETALJI.CM_ZZA_ID
-WHERE (CM_JMBG_IZVRSITELJA = jmbgIzvrsitelja AND CM_DATUM >= datum)</sql>
+WHERE (CM_JMBG_IZVRSITELJA = #jmbgIzvrsitelja AND CM_DATUM >=  #datum)</sql>
                   </call>
                   <reference-class>PregledZahtevaIzvrsitelja.CmZahtevZaglavlje</reference-class>
                   <container xsi:type="list-container-policy">
