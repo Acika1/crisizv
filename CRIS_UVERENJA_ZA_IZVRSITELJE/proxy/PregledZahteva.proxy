@@ -32,7 +32,7 @@
     <tran:provider-id>http</tran:provider-id>
     <tran:inbound>true</tran:inbound>
     <tran:URI>
-      <env:value>/CRIS_IZVRSITELJI/proxy/PregledZahteva</env:value>
+      <env:value>/CRIS_UVERENJA_ZA_IZVRSITELJE/proxy/PregledZahteva</env:value>
     </tran:URI>
     <tran:inbound-properties/>
     <tran:all-headers>false</tran:all-headers>

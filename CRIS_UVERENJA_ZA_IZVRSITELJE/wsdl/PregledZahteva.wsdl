@@ -36,7 +36,7 @@
 
 <wsdl:service name="PregledZahtevaService">
 <wsdl:port name="PregledZahtevaSOAP" binding="tns:PregledZahtevaSOAP">
-	<soap:address location="https://clesb.cris:8012/CRIS_IZVRSITELJI/proxy/PregledZahteva"/>
+	<soap:address location="http://clesb.cris:8012/CRIS_UVERENJA_ZA_IZVRSITELJE/proxy/PregledZahteva"/>
 </wsdl:port>
 </wsdl:service>
 </wsdl:definitions>

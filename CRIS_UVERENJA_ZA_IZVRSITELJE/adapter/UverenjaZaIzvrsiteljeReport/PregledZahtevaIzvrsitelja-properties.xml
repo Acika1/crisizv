@@ -71,8 +71,8 @@
    <entry key="CM_ZAHTEV_ZAGLAVLJE.CM_IME_PREZIME:db_column_type">VARCHAR2</entry>
    <entry key="CM_ZAHTEV_DETALJI.CM_USR_INS:db_column_type">VARCHAR2</entry>
    <entry key="CM_ZAHTEV_DETALJI.CM_ZZA_ID:db_column_type">NUMBER</entry>
-   <entry key="CM_ZAHTEV_DETALJI.CM_ZZA_ID:db_column_not_null">true</entry>
    <entry key="CM_ZAHTEV_ZAGLAVLJE.CM_ZZA_ID:db_column_type">NUMBER</entry>
+   <entry key="CM_ZAHTEV_DETALJI.CM_ZZA_ID:db_column_not_null">true</entry>
    <entry key="CM_ZAHTEV_DETALJI.CM_USR_UPD:db_column_type">VARCHAR2</entry>
    <entry key="CM_ZAHTEV_DETALJI.CM_ZZA_ID:db_column_scale">0</entry>
    <entry key="CM_ZAHTEV_ZAGLAVLJE.CM_ZZA_ID:db_column_precision">10</entry>
