@@ -32,7 +32,8 @@ declare function xf:PregledZahtevaErrorHandler($fault1 as element(ns2:fault))
              	<ns0:detalji>
         	 		<ns0:poruka> Dogodila se neočekivana greška. </ns0:poruka>
         	 	</ns0:detalji>
-        	</ns0:greska> ))
+        	</ns0:greska> )
+        	)
         	}
         </ns0:CommonResponse>
 };
